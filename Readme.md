@@ -29,5 +29,5 @@ the regular Expression : "ab*", parse it like:
 ## License
 
 Its licensed under WTFPL 
-https://de.wikipedia.org/wiki/WTFPL
+https://en.wikipedia.org/wiki/WTFPL
 
