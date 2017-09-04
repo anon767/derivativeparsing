@@ -16,5 +16,5 @@ assert(Parser::matches("a", $L) && Parser::matches("b", $L));
 $L = new Cat(new Union(new Character("a"),new Character("b")),new Character("c")); //(a|b)c
 assert(Parser::matches("ac",$L) && Parser::matches("bc",$L));
 $L = new Star(new Character("a")); // a*
-assert(Parser::matches("aaaaaaaaaaaaaaaaaaaaaa", $L));
+assert(Parser::matches("aaaaaaaaaaaaaaaa", $L));
 echo "tests done";
