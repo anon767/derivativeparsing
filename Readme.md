@@ -15,10 +15,10 @@ is D<sub>a</sub>(L) = {b}
 ## Testcases
 
 I added some simple Testcases. For example to parse the language expressed with 
-the regular Expression : "ab*", parse it like:
+the regular Expression : "ba*", parse it like:
 ```PHP
     $L = new Cat(new Character("b"),new Star(new Character("a"))); 
-    assert(Parser::matches("baaa", $L) == true);
+    assert(Parser::matches("baaaa", $L) == true);
 ```
 
 ## Things not implemented
