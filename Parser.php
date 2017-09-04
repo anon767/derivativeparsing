@@ -1,23 +1,20 @@
 <?php
+
 /**
  * Parsing with derivatives PHP
  * based upon http://leifandersen.net/papers/andersen2012parsing.pdf
  * made by Tom 2017
  */
-
-
 Interface LanguageComponent
 {
 }
 
 class EmptyL implements LanguageComponent
 {
-    var $L = null; //emptyset
 }
 
 class Epsilon implements LanguageComponent
 {
-    var $L = ""; //empty word
 }
 
 class Character implements LanguageComponent
@@ -82,9 +79,9 @@ class Parser
     public static function derive($c, $L)
     {
         if ($L instanceof EmptyL) return new EmptyL();
-        if ($L instanceof Epsilon) return new Epsilon();
+        if ($L instanceof Epsilon) return new EmptyL();
         if ($L instanceof Character) {
-            if ($c == $L->c)
+            if (strcmp($c, $L->c) == 0)
                 return new Epsilon();
             else
                 return new EmptyL();
@@ -92,11 +89,15 @@ class Parser
         if ($L instanceof Union)
             return new Union(self::derive($c, $L->L1), self::derive($c, $L->L2));
         if ($L instanceof Cat) {
-            if ($L->L1) return new Union(self::derive($c, $L->L2), new Cat(self::derive($c, $L->L1), $L->L2));
+            if (self::nullability($L->L1)) return new Union(self::derive($c, $L->L2), new Cat(self::derive($c, $L->L1), $L->L2));
             else return new Cat(self::derive($c, $L->L1), $L->L2);
         }
         if ($L instanceof Star)
-            return new Cat(self::derive($c, $L->L), $L->L);
+            return new Cat(self::derive($c, $L->L), new Star($L->L));
+        /**
+         * http://leifandersen.net/papers/andersen2012parsing.pdf Here is an Error in the Paper
+         * Page 4 cat(D(c,L.L),L) must be cat(D(c,L.l),Star(L))
+         */
     }
 
     public static function matches($w, LanguageComponent $L)
