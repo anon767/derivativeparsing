@@ -94,10 +94,6 @@ class Parser
         }
         if ($L instanceof Star)
             return new Cat(self::derive($c, $L->L), new Star($L->L));
-        /**
-         * http://leifandersen.net/papers/andersen2012parsing.pdf Here is an Error in the Paper
-         * Page 4 cat(D(c,L.L),L) must be cat(D(c,L.l),Star(L))
-         */
     }
 
     public static function matches($w, LanguageComponent $L)
