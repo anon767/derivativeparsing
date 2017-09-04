@@ -17,7 +17,7 @@ is D<sub>a</sub>(L) = {b}
 I added some simple Testcases. For example to parse the language expressed with 
 the regular Expression : "ab*", parse it like:
 ```PHP
-    $L = new Union(new Character("b"),new Star(new Character("a"))); 
+    $L = new Cat(new Character("b"),new Star(new Character("a"))); 
     assert(Parser::matches("baaa", $L) == true);
 ```
 
